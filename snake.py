@@ -9,8 +9,8 @@ root = Tk()
 root.title("Tkinter - Snake")
 # root.geometry('300x500+1200+40')
 root.resizable(0, 0)
-root.iconbitmap("./pyt.ico")
 root.attributes("-alpha", 0.95)
+root.iconbitmap("./pyt.ico")
 
 
 score = 0
