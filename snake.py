@@ -22,7 +22,7 @@ SPEED = 180
 SPACE_SIZE = 50
 BODY_PARTS = 2
 SNAKE_COLOR = "red"
-FOOD_COLOR = "green"
+FOOD_COLOR = "yellow"
 BG_COLOR = "black"
 
 
@@ -126,25 +126,27 @@ def game_over():
 def restart():
     global canvas, snake, food, direction, score
 
-    # reset score and direction
-    score = 0
-    direction = "down"
-    label.config(text="Score: {}".format(score))
+    if check_collisions(snake):
+        # reset score and direction
+        score = 0
+        direction = "down"
+        label.config(text="Score: {}".format(score))
 
-    # delete gameover text if it exists
-    canvas.delete("gameover")
+        # delete gameover text if it exists
+        canvas.delete("gameover")
 
-    # delete all snake squares and food
-    for square in snake.squares:
-        canvas.delete(square)
-    canvas.delete("food")
+        # delete all snake squares and food
 
-    # create a new snake and food
-    snake = Snake()
-    food = Food()
+        for square in snake.squares:
+            canvas.delete(square)
+            canvas.delete("food")
 
-    # start the game again
-    next_turn(snake, food)
+        # create a new snake and food
+        snake = Snake()
+        food = Food()
+
+        # start the game again
+        next_turn(snake, food)
 
 
 label = Label(root, text="Score: {}".format(score), font=("Rubik", 30))
@@ -152,6 +154,7 @@ label.pack()
 angainBtn = Button(root, text="Restart",
                    command=restart)
 angainBtn.pack()
+
 
 canvas = Canvas(root, bg=BG_COLOR, height=GAME_HEIGTH, width=GAME_WIDTH)
 canvas.pack()
